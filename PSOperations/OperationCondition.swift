@@ -89,6 +89,7 @@ struct OperationConditionEvaluator {
         for (index, condition) in conditions.enumerated() {
             conditionGroup.enter()
             condition.evaluateForOperation(operation) { result in
+                print("EVALUATE_CONDITIONS[\(type(of: condition))]: '\(type(of: operation))' - Result: \(result)")
                 results[index] = result
                 conditionGroup.leave()
             }
