@@ -185,6 +185,7 @@ open class Operation: Foundation.Operation {
     }
 
     fileprivate func evaluateConditions() {
+        print("EVALUATE_CONDITIONS: \(type(of: self))")
         stateAccess.lock()
         defer { stateAccess.unlock() }
 
@@ -235,7 +236,7 @@ open class Operation: Foundation.Operation {
         print("MAIN: \(type(of: self))")
         stateAccess.lock()
 
-        assert(state == .ready, "This operation must be performed on an operation queue.")
+        assert(state == .ready, "'\(type(of: self))' must be performed on an operation queue")
 
         if internalErrors.isEmpty && !isCancelled {
             state = .executing
@@ -244,7 +245,7 @@ open class Operation: Foundation.Operation {
             for observer in observers {
                 observer.operationDidStart(self)
             }
-
+            print("EXECUTE: \(type(of: self))")
             execute()
         } else {
             finish()
