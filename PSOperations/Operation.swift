@@ -294,6 +294,7 @@ open class Operation: Foundation.Operation {
     }
 
     override open func cancel() {
+        print("CANCEL: \(type(of: self))")
         stateAccess.lock()
         defer { stateAccess.unlock() }
         guard !isFinished else { return }
@@ -344,6 +345,7 @@ open class Operation: Foundation.Operation {
     */
     fileprivate var hasFinishedAlready = false
     public final func finish(_ errors: [Error] = []) {
+        print("FINISH: \(type(of: self)). Success: \(errors.isEmpty)")
         stateAccess.lock()
         defer { stateAccess.unlock() }
         guard !hasFinishedAlready else { return }
