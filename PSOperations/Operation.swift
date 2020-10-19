@@ -231,7 +231,8 @@ open class Operation: Foundation.Operation {
     }
 
     // MARK: Execution and Cancellation
-    override public final func main() {
+    override open func main() {
+        print("MAIN: \(type(of: self))")
         stateAccess.lock()
 
         assert(state == .ready, "This operation must be performed on an operation queue.")
@@ -249,6 +250,11 @@ open class Operation: Foundation.Operation {
             finish()
             stateAccess.unlock()
         }
+    }
+
+    override open func start() {
+        print("START: \(type(of: self))")
+        super.start()
     }
 
     /**
