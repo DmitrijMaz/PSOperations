@@ -85,9 +85,12 @@ struct OperationConditionEvaluator {
 
         var results = [OperationConditionResult?](repeating: nil, count: conditions.count)
 
+        print("EVALUATE_CONDITIONS[\(conditions.count)]: '\(type(of: operation))'")
+
         // Ask each condition to evaluate and store its result in the "results" array.
         for (index, condition) in conditions.enumerated() {
             conditionGroup.enter()
+            print("EVALUATE_CONDITIONS[\(type(of: condition))]: '\(type(of: operation))' - Starting")
             condition.evaluateForOperation(operation) { result in
                 print("EVALUATE_CONDITIONS[\(type(of: condition))]: '\(type(of: operation))' - Result: \(result)")
                 results[index] = result
